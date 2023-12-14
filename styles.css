@@ -1,0 +1,35 @@
+html {
+  margin: 0;
+}
+
+body {
+  margin: 0;
+}
+
+.calculator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  min-height: 100vh;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: repeat(4, 100px);
+  grid-template-rows: 150px repeat(5, 100px);
+  gap: 10px;
+  border: 10px solid black;
+}
+
+.buttons {
+  display: flex;
+}
+
+.display {
+  grid-column: span 4;
+}
+
+#zero {
+  grid-column: span 2;
+}
