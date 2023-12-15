@@ -1,20 +1,47 @@
-// let first, operator, last;
+// variables
+let displayValue = "0";
+let firstOperand;
+let secondOperand;
+let operator;
+let result;
+
 const display = document.querySelector(".display");
-const operand = document.querySelector(".operand");
-const operator = document.querySelector(".operator");
-const clear = document.querySelector("#clear");
+// const clear = document.querySelector("#clear");
+const buttons = document.querySelectorAll("button");
 
-// event listeners
-clear.addEventListener("click", () => {
-  display.textContent = "0";
-});
-
-operand.addEventListener("click", () => {
-  display.textContent = "button pressed";
-});
+// Clear the display
+// clear.addEventListener("click", () => {
+//   display.textContent = "0";
+// });
 
 // Functions
-const updateDisplay = function () {};
+const updateDisplay = function () {
+  // Need to add check to make sure number is not too long
+  display.innerHTML = displayValue;
+};
+
+updateDisplay();
+
+const buttonPress = function () {
+  for (let i = 0; i < buttons.length; i++) {
+    buttons[i].addEventListener("click", () => {
+      console.log(buttons[i].classList.value);
+      if (buttons[i].classList.value == "operand") {
+        displayValue += buttons[i].value;
+        updateDisplay();
+      } else if (buttons[i].classList.value == "operator") {
+        updateDisplay();
+      } else if (buttons[i].classList.value == "clear") {
+        clearDisplay();
+        updateDisplay();
+      }
+    });
+  }
+};
+
+buttonPress();
+
+const clearDisplay = () => (displayValue = 0);
 
 const operate = function (first, operator, last) {
   if (operator == "+") {
