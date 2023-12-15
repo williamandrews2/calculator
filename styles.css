@@ -22,12 +22,16 @@ body {
   border: 10px solid black;
 }
 
-.buttons {
-  display: flex;
+button {
+  cursor: pointer;
 }
 
 .display {
   grid-column: span 4;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  background-color: #fef1dc;
 }
 
 #zero {

@@ -1,5 +1,20 @@
-// Initialize the two numbers and the operator variables.
-let first, operator, last;
+// let first, operator, last;
+const display = document.querySelector(".display");
+const operand = document.querySelector(".operand");
+const operator = document.querySelector(".operator");
+const clear = document.querySelector("#clear");
+
+// event listeners
+clear.addEventListener("click", () => {
+  display.textContent = "0";
+});
+
+operand.addEventListener("click", () => {
+  display.textContent = "button pressed";
+});
+
+// Functions
+const updateDisplay = function () {};
 
 const operate = function (first, operator, last) {
   if (operator == "+") {
