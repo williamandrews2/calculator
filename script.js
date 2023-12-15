@@ -1,18 +1,12 @@
 // variables
-let displayValue = "0";
+let displayValue = "";
 let firstOperand;
 let secondOperand;
 let operator;
 let result;
 
 const display = document.querySelector(".display");
-// const clear = document.querySelector("#clear");
 const buttons = document.querySelectorAll("button");
-
-// Clear the display
-// clear.addEventListener("click", () => {
-//   display.textContent = "0";
-// });
 
 // Functions
 const updateDisplay = function () {
@@ -41,7 +35,7 @@ const buttonPress = function () {
 
 buttonPress();
 
-const clearDisplay = () => (displayValue = 0);
+const clearDisplay = () => (displayValue = "");
 
 const operate = function (first, operator, last) {
   if (operator == "+") {
