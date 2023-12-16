@@ -28,7 +28,8 @@ function buttonPress() {
           displayValue == "+" ||
           displayValue == "-" ||
           displayValue == "*" ||
-          displayValue == "/"
+          displayValue == "/" ||
+          result != null
         ) {
           clearDisplay();
         }
@@ -37,15 +38,20 @@ function buttonPress() {
       } else if (buttons[i].classList.value == "operator") {
         // NOTE: when we hit the plus the screen needs to store the first number in the first
         // operand and update the display witht hte operator.
+        if (result != null) {
+          operator = buttons[i].value;
+        }
         operatorHandler(buttons[i].value);
       } else if (buttons[i].classList.value == "clear") {
         resetDisplay();
         updateDisplay();
       }
-      console.log(firstOperand);
-      console.log(operator);
-      console.log(secondOperand);
-      console.log(result);
+      console.log("firstOperand: " + firstOperand);
+      console.log("operator: " + operator);
+      console.log("secondOperator: " + secondOperand);
+      console.log("result: " + result);
+      console.log("display value: " + displayValue);
+      console.log("----------");
     });
   }
 }
@@ -53,26 +59,36 @@ function buttonPress() {
 buttonPress();
 
 function operatorHandler(a) {
-  clearDisplay();
-  updateDisplay();
-  if (operator == null) {
+  if (operator == null && result == null) {
     // Assign the first operand that was input to the calculator.
     firstOperand = displayValue;
+    operator = a;
+    clearDisplay();
+  } else if (operator == null && result != null) {
+    operator = a;
+    clearDisplay();
+    updateDisplay();
   } else if (operator != null && secondOperand == null) {
     secondOperand = displayValue;
-  } else if (operator != null && secondOperand != null) {
     result = operate(firstOperand, operator, secondOperand);
+    // Update the display with the new result
     displayValue = result;
     updateDisplay();
+    // Reset the variables for a second calculation
+    secondOperand = null;
+    firstOperand = result;
+    operator = null;
   }
+  // else if (operator != null && secondOperand != null) {
+  //   operator = a;
+  // }
 
-  operator = a;
-  clearDisplay();
+  // clearDisplay();
 }
 
-const clearDisplay = () => {
+function clearDisplay() {
   displayValue = "";
-};
+}
 
 const resetDisplay = () => {
   clearDisplay();
