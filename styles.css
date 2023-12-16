@@ -32,6 +32,8 @@ button {
   justify-content: end;
   align-items: center;
   background-color: #fef1dc;
+  font-size: 64px;
+  padding: 0px 10px;
 }
 
 #zero {
