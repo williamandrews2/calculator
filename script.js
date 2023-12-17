@@ -35,6 +35,12 @@ function buttonPress() {
       } else if (buttons[i].classList.value == "equals") {
         equalsHandler();
         updateDisplay();
+      } else if (buttons[i].classList.value == "negate") {
+        negateHandler(displayValue);
+        updateDisplay();
+      } else if (buttons[i].classList.value == "percent") {
+        percentHandler(displayValue);
+        updateDisplay();
       }
     });
   }
@@ -127,6 +133,14 @@ function equalsHandler() {
       result = null;
     }
   }
+}
+
+function negateHandler(a) {
+  displayValue = (a * -1).toString();
+}
+
+function percentHandler(a) {
+  displayValue = (a * 100).toString();
 }
 
 const resetDisplay = () => {
