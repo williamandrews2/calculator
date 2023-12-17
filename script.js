@@ -1,8 +1,9 @@
-// variables
+// create variables
 let displayValue = "";
 let firstOperand = null;
 let secondOperand = null;
-let operator = null;
+let firstOperator = null;
+let secondOperator = null;
 let result = null;
 
 const display = document.querySelector(".display");
@@ -23,35 +24,18 @@ function buttonPress() {
   for (let i = 0; i < buttons.length; i++) {
     buttons[i].addEventListener("click", () => {
       if (buttons[i].classList.value == "operand") {
-        // Clear the display to show the operand that was just pressed.
-        if (
-          displayValue == "+" ||
-          displayValue == "-" ||
-          displayValue == "*" ||
-          displayValue == "/" ||
-          result != null
-        ) {
-          clearDisplay();
-        }
-        displayValue += buttons[i].value;
+        operandHandler(buttons[i].value);
         updateDisplay();
       } else if (buttons[i].classList.value == "operator") {
-        // NOTE: when we hit the plus the screen needs to store the first number in the first
-        // operand and update the display witht hte operator.
-        if (result != null) {
-          operator = buttons[i].value;
-        }
         operatorHandler(buttons[i].value);
+        updateDisplay();
       } else if (buttons[i].classList.value == "clear") {
         resetDisplay();
         updateDisplay();
+      } else if (buttons[i].classList.value == "equals") {
+        equalsHandler();
+        updateDisplay();
       }
-      console.log("firstOperand: " + firstOperand);
-      console.log("operator: " + operator);
-      console.log("secondOperator: " + secondOperand);
-      console.log("result: " + result);
-      console.log("display value: " + displayValue);
-      console.log("----------");
     });
   }
 }
@@ -59,42 +43,62 @@ function buttonPress() {
 buttonPress();
 
 function operatorHandler(a) {
-  if (operator == null && result == null) {
-    // Assign the first operand that was input to the calculator.
-    firstOperand = displayValue;
-    operator = a;
-    clearDisplay();
-  } else if (operator == null && result != null) {
-    operator = a;
-    clearDisplay();
-    updateDisplay();
-  } else if (operator != null && secondOperand == null) {
+  if (firstOperator != null && secondOperator == null) {
+    // 4th click
+    secondOperator = a;
     secondOperand = displayValue;
-    result = operate(firstOperand, operator, secondOperand);
-    // Update the display with the new result
+    result = operate(firstOperand, firstOperator, secondOperand);
     displayValue = result;
-    updateDisplay();
-    // Reset the variables for a second calculation
-    secondOperand = null;
-    firstOperand = result;
-    operator = null;
+    firstOperand = displayValue;
+    // reset the variable
+    result = null;
+  } else if (firstOperator != null && secondOperator != null) {
+    secondOperand = displayValue;
+    result = operate(firstOperand, secondOperator, secondOperand);
+    secondOperator = a;
+    displayValue = result;
+    firstOperand = displayValue;
+    result = null;
+  } else {
+    firstOperator = a;
+    firstOperand = displayValue;
   }
-  // else if (operator != null && secondOperand != null) {
-  //   operator = a;
-  // }
+}
 
-  // clearDisplay();
+function operandHandler(a) {
+  // variable 'a' is the operand
+  if (firstOperator == null) {
+    if (displayValue == "") {
+      // 1st click input by the user
+      displayValue = a;
+    } else if (displayValue == firstOperand) {
+      // this happens after the equal sign is pressed to start a new equation
+      displayValue = a;
+    } else {
+      displayValue += a;
+    }
+  } else {
+    if (displayValue == firstOperand) {
+      displayValue = a;
+    } else {
+      displayValue += a;
+    }
+  }
 }
 
 function clearDisplay() {
   displayValue = "";
 }
 
+function equalsHandler() {
+  displayValue = result;
+}
+
 const resetDisplay = () => {
   clearDisplay();
   firstOperand = null;
   secondOperand = null;
-  operator = null;
+  firstOperator = null;
   result = null;
 };
 

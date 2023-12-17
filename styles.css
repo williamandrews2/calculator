@@ -4,6 +4,7 @@ html {
 
 body {
   margin: 0;
+  background: linear-gradient(to left, rgb(35, 253, 35), rgb(22, 193, 255));
 }
 
 .calculator {
@@ -24,6 +25,7 @@ body {
 
 button {
   cursor: pointer;
+  font-size: 35px;
 }
 
 .display {
