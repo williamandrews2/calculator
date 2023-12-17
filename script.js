@@ -88,6 +88,11 @@ function operandHandler(a) {
 
 function clearDisplay() {
   displayValue = "";
+  firstOperand = null;
+  secondOperand = null;
+  firstOperator = null;
+  secondOperator = null;
+  result = null;
 }
 
 function equalsHandler() {

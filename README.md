@@ -14,4 +14,4 @@ operation. These will be updated in the calculator's display.
 
 ## Known issues
 
-- Operator stack is not working properly. Does not store the new operator.
+- Some operations are not executing in order.
