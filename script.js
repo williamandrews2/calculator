@@ -159,7 +159,7 @@ function negateHandler(a) {
 }
 
 function roundNumber(num, places) {
-  return Math.round(num + "e" + places) + "e-" + places;
+  return parseFloat(Math.round(num + "e" + places) + "e-" + places);
 }
 
 function decimalHandler(a) {
