@@ -14,4 +14,4 @@ operation. These will be updated in the calculator's display.
 
 ## Known issues
 
-- Long decimal values are not being shortened to fit the screen
+None at the moment!

@@ -61,7 +61,7 @@ function operatorHandler(a) {
       firstOperator,
       Number(secondOperand)
     );
-    displayValue = result;
+    displayValue = roundNumber(result, 11).toString();
     firstOperand = displayValue;
     // reset the variable
     result = null;
@@ -73,7 +73,7 @@ function operatorHandler(a) {
       Number(secondOperand)
     );
     secondOperator = a;
-    displayValue = result;
+    displayValue = roundNumber(result, 11).toString();
     firstOperand = displayValue;
     result = null;
   } else {
@@ -125,7 +125,7 @@ function equalsHandler() {
     if (result == "ERROR") {
       displayValue = "ERROR";
     } else {
-      displayValue = result;
+      displayValue = roundNumber(result, 11).toString();
       firstOperand = displayValue;
       // reset variables to start a new calculation
       secondOperand = null;
@@ -143,7 +143,7 @@ function equalsHandler() {
     if (result == "ERROR") {
       displayValue = "ERROR";
     } else {
-      displayValue = result;
+      displayValue = roundNumber(result, 11).toString();
       firstOperand = displayValue;
       // reset variables to start a new calculation
       secondOperand = null;
@@ -156,6 +156,10 @@ function equalsHandler() {
 
 function negateHandler(a) {
   displayValue = (a * -1).toString();
+}
+
+function roundNumber(num, places) {
+  return Math.round(num + "e" + places) + "e-" + places;
 }
 
 function decimalHandler(a) {
@@ -171,15 +175,15 @@ function percentHandler(a) {
   displayValue = (a * 100).toString();
 }
 
-const resetDisplay = () => {
+function resetDisplay() {
   clearDisplay();
   firstOperand = null;
   secondOperand = null;
   firstOperator = null;
   result = null;
-};
+}
 
-const operate = function (first, op, last) {
+function operate(first, op, last) {
   if (op == "+") {
     return add(first, last);
   }
@@ -192,7 +196,7 @@ const operate = function (first, op, last) {
   if (op == "/") {
     return divide(first, last);
   }
-};
+}
 
 const add = function (a, b) {
   return a + b;
