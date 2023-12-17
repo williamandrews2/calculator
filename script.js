@@ -96,7 +96,37 @@ function clearDisplay() {
 }
 
 function equalsHandler() {
-  displayValue = result;
+  if (firstOperator == null) {
+    displayValue = displayValue;
+  } else if (secondOperator != null) {
+    secondOperand = displayValue;
+    result = operate(firstOperand, secondOperator, secondOperand);
+    if (result == "ERROR") {
+      displayValue = "ERROR";
+    } else {
+      displayValue = result;
+      firstOperand = displayValue;
+      // reset variables to start a new calculation
+      secondOperand = null;
+      firstOperator = null;
+      secondOperator = null;
+      result = null;
+    }
+  } else {
+    secondOperand = displayValue;
+    result = operate(firstOperand, firstOperator, secondOperand);
+    if (result == "ERROR") {
+      displayValue = "ERROR";
+    } else {
+      displayValue = result;
+      firstOperand = displayValue;
+      // reset variables to start a new calculation
+      secondOperand = null;
+      firstOperator = null;
+      secondOperator = null;
+      result = null;
+    }
+  }
 }
 
 const resetDisplay = () => {
@@ -138,5 +168,9 @@ const multiply = function (a, b) {
 };
 
 const divide = function (a, b) {
-  return a / b;
+  if (b == 0) {
+    return "ERROR";
+  } else {
+    return a / b;
+  }
 };
