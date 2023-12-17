@@ -41,6 +41,9 @@ function buttonPress() {
       } else if (buttons[i].classList.value == "percent") {
         percentHandler(displayValue);
         updateDisplay();
+      } else if (buttons[i].classList.value == "decimal") {
+        decimalHandler(buttons[i].value);
+        updateDisplay();
       }
     });
   }
@@ -53,14 +56,22 @@ function operatorHandler(a) {
     // 4th click
     secondOperator = a;
     secondOperand = displayValue;
-    result = operate(firstOperand, firstOperator, secondOperand);
+    result = operate(
+      Number(firstOperand),
+      firstOperator,
+      Number(secondOperand)
+    );
     displayValue = result;
     firstOperand = displayValue;
     // reset the variable
     result = null;
   } else if (firstOperator != null && secondOperator != null) {
     secondOperand = displayValue;
-    result = operate(firstOperand, secondOperator, secondOperand);
+    result = operate(
+      Number(firstOperand),
+      secondOperator,
+      Number(secondOperand)
+    );
     secondOperator = a;
     displayValue = result;
     firstOperand = displayValue;
@@ -106,7 +117,11 @@ function equalsHandler() {
     displayValue = displayValue;
   } else if (secondOperator != null) {
     secondOperand = displayValue;
-    result = operate(firstOperand, secondOperator, secondOperand);
+    result = operate(
+      Number(firstOperand),
+      secondOperator,
+      Number(secondOperand)
+    );
     if (result == "ERROR") {
       displayValue = "ERROR";
     } else {
@@ -120,7 +135,11 @@ function equalsHandler() {
     }
   } else {
     secondOperand = displayValue;
-    result = operate(firstOperand, firstOperator, secondOperand);
+    result = operate(
+      Number(firstOperand),
+      firstOperator,
+      Number(secondOperand)
+    );
     if (result == "ERROR") {
       displayValue = "ERROR";
     } else {
@@ -139,6 +158,15 @@ function negateHandler(a) {
   displayValue = (a * -1).toString();
 }
 
+function decimalHandler(a) {
+  if (displayValue === firstOperand || displayValue === secondOperand) {
+    displayValue = "";
+    displayValue += a;
+  } else if (!displayValue.includes(a)) {
+    displayValue += a;
+  }
+}
+
 function percentHandler(a) {
   displayValue = (a * 100).toString();
 }
@@ -152,9 +180,6 @@ const resetDisplay = () => {
 };
 
 const operate = function (first, op, last) {
-  first = parseInt(first);
-  last = parseInt(last);
-
   if (op == "+") {
     return add(first, last);
   }
